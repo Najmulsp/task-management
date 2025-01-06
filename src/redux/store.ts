@@ -4,7 +4,7 @@ import taskReducer from "./features/task/taskSlice";
 
 export const store = configureStore({
     reducer: {
-        tasks: taskReducer
+        todos: taskReducer    // here I will give which name like todos in selector I will got it in selector hook.
     }
 });
 

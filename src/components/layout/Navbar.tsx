@@ -5,7 +5,7 @@ import { ModeToggle } from "./mode-toggle";
 
 const Navbar = () => {
   return (
-    <nav className="w-[1280px] mx-auto max-h-24 flex items-center justify-around py-5 dark:bg-cyan-950 bg-cyan-100 opacity-90 fixed">
+    <nav className="w-[1280px] mx-auto max-h-24 flex items-center justify-around py-5 dark:bg-cyan-950 bg-cyan-100 opacity-90">
       <div className="flex items-center p-5">
         <img src={logo} alt="" />
         <span className="text-5xl text-blue-900 dark:text-cyan-200 font-bold ml-2">Master</span>
