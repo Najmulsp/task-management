@@ -20,6 +20,9 @@ const Navbar = () => {
         <Link to="/user">
           <Button className="bg-cyan-700">User</Button>
         </Link>
+        <Link to="/jobs">
+          <Button className="bg-cyan-700">Jobs</Button>
+        </Link>
       </div>
       <div className="flex items-center gap-2">
         <ModeToggle />

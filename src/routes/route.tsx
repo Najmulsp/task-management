@@ -1,6 +1,7 @@
 
 import Root from "@/components/layout/Root";
 import Home from "@/pages/home/Home";
+import Jobs from "@/pages/jobs/Jobs";
 import Login from "@/pages/Login";
 import Tasks from "@/pages/tasks/Tasks";
 import User from "@/pages/users/User";
@@ -29,10 +30,10 @@ const routes = createBrowserRouter([
             },
         ]
     },
-    // {
-    //     path: "",
-    //     element: ,
-    // },
+    {
+        path: "/jobs",
+        element: <Jobs /> ,
+    },
     
 ]
 )
