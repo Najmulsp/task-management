@@ -108,7 +108,10 @@ export function AddTaskModal() {
                 <FormItem>
                   <FormLabel>Priority</FormLabel>
                   <FormControl>
-                    <Select>
+                    <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    >
                       <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="Which Priority" />
                       </SelectTrigger>
