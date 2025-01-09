@@ -69,7 +69,8 @@ const OurClients = () => {
   },
 ]
     return (
-        <div>
+        <div className="w-[1440] mx-auto">
+          <h1 className="text-4xl font-bold text-center">Our Clients</h1>
             <Carousel
             plugins={[ Autoplay({ delay: 2000 })]}
       opts={{
