@@ -1,4 +1,4 @@
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Trash2 } from "lucide-react";
 import {
   Card,
@@ -9,12 +9,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox"
 import { cn } from "@/lib/utils";
 import { AddTaskModal } from "@/components/layout/module/AddTaskModal";
+import { deleteTask, toggleCompletedState } from "@/redux/features/task/taskSlice";
+import { UpdateTaskModal } from "@/components/layout/module/UpdateTaskModal";
 
 const Tasks = () => {
   const tasks = useAppSelector((state) => state.todos.tasks);
   console.log(tasks);
+
+const dispatch = useAppDispatch();
+
   return (
     <>
     {/* banner */}
@@ -45,7 +51,13 @@ const Tasks = () => {
         {tasks?.map((task) => (
           <Card key={task.id} className="bg-cyan-800 hover:bg-cyan-700">
             <CardHeader>
-              <CardTitle>{task.title}</CardTitle>
+              <CardTitle>
+                {
+                  task.isCompleted === false?
+                  <p className="text-yellow-500">{task.title }</p>
+                  : <p className="text-green-500">{task.title }</p>
+                }
+                </CardTitle>
               <CardDescription className="text-white">{task.description}</CardDescription>
             </CardHeader>
             <CardContent>
@@ -56,9 +68,18 @@ const Tasks = () => {
               })}>{task.priority}</span></p>
             </CardContent>
             <CardFooter>
-              <Button>
-                <Trash2 size={24} color="white" />
+              <div className="flex justify-around items-center gap-3">
+              <Button
+              onClick={()=>dispatch(deleteTask(task.id))}
+              >
+                <Trash2  size={24} color="white" />
               </Button>
+              <UpdateTaskModal taskId={task.id}/>
+              
+              <Checkbox
+              checked={task.isCompleted}
+              onClick={()=>dispatch(toggleCompletedState(task.id))} className="text-purple-500 bg-rose-500" id="terms" />
+              </div>
             </CardFooter>
           </Card>
         ))}

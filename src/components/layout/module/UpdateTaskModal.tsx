@@ -34,30 +34,41 @@ import {
 
 import { useForm, FormProvider, SubmitHandler, FieldValues } from "react-hook-form";
 import { Calendar } from "@/components/ui/calendar";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, FilePenLine } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
-import { useAppDispatch } from "@/redux/hooks";
-import { addTask } from "@/redux/features/task/taskSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { updateTask } from "@/redux/features/task/taskSlice";
 import { ITask } from "@/types";
 
 
-export function AddTaskModal() {
+export function UpdateTaskModal({ taskId }: { taskId: string }) {
+    const tasks = useAppSelector((state) => state.todos.tasks);
+    const task = tasks.find((task) => task.id === taskId);
+
+    console.log(task)
+
+
   const form = useForm();
   const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
-    dispatch(addTask(data as ITask))
+    dispatch(updateTask(data as ITask))
   };
+
+
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="text-white">Add Task</Button>
+        <Button className="text-white">
+        <FilePenLine />
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add Task</DialogTitle>
+          <DialogTitle>Update Task</DialogTitle>
           <DialogDescription>
             Make your task here. Click save when you're done.
           </DialogDescription>
@@ -72,7 +83,7 @@ export function AddTaskModal() {
                   <FormLabel>Title</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Task Title"
+                      defaultValue={task?.title}
                       {...field}
                       value={field.value || ""}
                     />
@@ -88,7 +99,7 @@ export function AddTaskModal() {
                   <FormLabel>Description</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Describe Your Task"
+                    defaultValue={task?.description}
                       {...field}
                       value={field.value || ""}
                     />
@@ -108,6 +119,7 @@ export function AddTaskModal() {
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
+                    defaultValue={task?.dueDate}
                       variant={"outline"}
                       className={cn(
                         "w-[240px] pl-3 text-left font-normal",
@@ -150,7 +162,7 @@ export function AddTaskModal() {
                     defaultValue={field.value}
                     >
                       <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Which Priority" />
+                        <SelectValue defaultValue={task?.priority} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
@@ -168,7 +180,7 @@ export function AddTaskModal() {
             />
             <DialogFooter className="pt-4">
               <Button type="submit" className=" text-white">
-                Save
+                Save changes
               </Button>
             </DialogFooter>
           </form>
