@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { AddTaskModal } from "@/components/layout/module/AddTaskModal";
 import { deleteTask, toggleCompletedState } from "@/redux/features/task/taskSlice";
 import { UpdateTaskModal } from "@/components/layout/module/UpdateTaskModal";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Tasks = () => {
   const tasks = useAppSelector((state) => state.todos.tasks);
@@ -44,6 +45,13 @@ const dispatch = useAppDispatch();
 
        
         <h1 className="text-4xl font-bold">My Tasks</h1>
+
+        <Tabs defaultValue="account" className="w-[400px]">
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="account">Account</TabsTrigger>
+        <TabsTrigger value="password">Password</TabsTrigger>
+      </TabsList>
+      </ Tabs>
         <AddTaskModal />
          </div>
       </div>

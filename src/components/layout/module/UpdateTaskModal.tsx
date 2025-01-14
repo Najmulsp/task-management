@@ -52,11 +52,15 @@ export function UpdateTaskModal({ taskId }: { taskId: string }) {
   const form = useForm();
   const dispatch = useAppDispatch();
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-    dispatch(updateTask(data as ITask))
-  };
 
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const updatedTask = {
+        ...task, // আগের টাস্কের ডেটা ধরে রাখা
+        ...data, // নতুন ডেটা যোগ করা
+    };
+
+    dispatch(updateTask(updatedTask));
+};
 
 
   return (

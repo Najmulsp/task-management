@@ -42,11 +42,18 @@ const taskSlice = createSlice({
         deleteTask: (state, action: PayloadAction<string>) =>{
             state.tasks = state.tasks.filter(task => task.id !== action.payload)
         },
-        updateTask : (state, action: PayloadAction<ITask>) =>{
-
-            const taskData = createTask(action.payload)
-            state.tasks.push(taskData);
+        updateTask: (state, action: PayloadAction<ITask>) => {
+            const index = state.tasks.findIndex((task) => task.id === action.payload.id);
+            if (index !== -1) {
+                state.tasks[index] = {
+                    ...state.tasks[index],
+                    ...action.payload,
+                };
+            }
         },
+        updateFilter: (state, action: PayloadAction< "Low" | "Medium" | "High" >) =>{
+                state.filter = action.payload;
+        }
 
     }
 })
